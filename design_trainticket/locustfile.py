@@ -154,27 +154,27 @@ class Requests:
         task()
 
 
-# class UserNoLogin(HttpUser):
-#     weight = 1
-#     wait_time = constant(1)
+class UserNoLogin(HttpUser):
+    weight = 50
+    wait_time = constant(1)
 
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.client.mount("https://", HTTPAdapter(pool_maxsize=50))
-#         self.client.mount("http://", HTTPAdapter(pool_maxsize=50))
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.client.mount("https://", HTTPAdapter(pool_maxsize=50))
+        self.client.mount("http://", HTTPAdapter(pool_maxsize=50))
 
-#     @task
-#     def perfom_task(self):
-#         requests = Requests(self.client)
-#         logging.debug(f"""Running user "no login" with id {requests.request_id}...""")
+    @task
+    def perfom_task(self):
+        requests = Requests(self.client)
+        logging.debug(f"""Running user "no login" with id {requests.request_id}...""")
 
-#         requests.perform_task("home")
-#         requests.perform_task("search_departure")
-#         requests.perform_task("search_return")
+        requests.perform_task("home")
+        requests.perform_task("search_departure")
+        requests.perform_task("search_return")
 
 
 class UserBooking(HttpUser):
-    weight = 1
+    weight = 50
     wait_time = constant(1)
 
     def __init__(self, *args, **kwargs):
